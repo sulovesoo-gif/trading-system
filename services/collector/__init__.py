@@ -1,0 +1,3 @@
+PERIOD = 14
+BB_PERIOD = 20
+BB_STD = 2

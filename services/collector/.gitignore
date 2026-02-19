@@ -1,0 +1,38 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.log
+*.sqlite
+*.db
+
+# Virtualenv
+venv/
+.venv/
+env/
+ENV/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+dist/
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+
+# Data dumps / local volumes
+*.dump
+*.sql
+data/
+volumes/
