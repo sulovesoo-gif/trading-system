@@ -1,9 +1,19 @@
+# Python
 venv/
-.venv/
-node_modules/
 __pycache__/
+*.pyc
 
+# Node
+node_modules/
+.next/
+
+# env
 .env
 *.pem
 
+# docs
 *.rtf
+
+# OS
+.DS_Store
+Thumbs.db
