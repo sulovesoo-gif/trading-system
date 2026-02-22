@@ -27,7 +27,7 @@ services:
       - DB_USER=${POSTGRES_USER}     # .env의 admin 사용
       - DB_PASSWORD=${POSTGRES_PASSWORD} # .env의 stock123 사용
     ports:
-      - "4000:4000"
+      - "4000:3001"
     depends_on:
       - db
     networks:

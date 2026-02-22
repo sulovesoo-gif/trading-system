@@ -42,40 +42,17 @@ app.get('/api/signals', async (req, res) => {
 
   try {
     const query = `
-      SELECT 
-        s.symbol,
-        m.stock_name,
-        s.current_price,
-        s.profit_rate,
-        s.scores,
-        s.high_5d,
-        s.trade_value,
-        s.volume,
-        s.bb_status,
-        -- 포착 시간 전체 전송
-        s.cap_time_1, s.cap_time_2, s.cap_time_3, 
-        s.cap_time_4, s.cap_time_5, s.cap_time_6, 
-        s.cap_time_7, s.cap_time_8, s.cap_time_9,
-        s.updated_at,
-        -- 테마 정보를 배열로 집계 (theme_stocks 테이블 활용)
-        COALESCE(ARRAY_AGG(DISTINCT t.theme_name) FILTER (WHERE t.theme_name IS NOT NULL), '{}') as themes,
-        -- 포트폴리오 정보
-        COALESCE(p.quantity, 0) as hold_quantity,
-        CASE WHEN p.symbol IS NOT NULL THEN true ELSE false END as is_holding
-      FROM detected_signals s
-      JOIN stock_master m ON s.symbol = m.symbol
-      LEFT JOIN theme_stocks t ON s.symbol = t.symbol
-      LEFT JOIN my_portfolio p ON s.symbol = p.symbol
-      WHERE s.updated_at >= CURRENT_DATE -- 오늘 업데이트된 데이터만
-      GROUP BY s.symbol, m.stock_name, p.symbol, p.quantity
-      ORDER BY ${orderBy}
-      LIMIT 100;
+      SELECT *
+      FROM detected_signals
+      ORDER BY updated_at DESC
+      LIMIT 50;
     `;
 
     const result = await pool.query(query);
     res.json(result.rows);
   } catch (err) {
-    console.error('API Error:', err.message);
+    console.error("API Error message:", err.message);
+    console.error("API Error stack:", err.stack);
     res.status(500).json({ 
       error: '데이터베이스 조회 중 오류가 발생했습니다.',
       details: process.env.NODE_ENV === 'development' ? err.stack : undefined 
@@ -108,6 +85,6 @@ app.post('/api/portfolio', async (req, res) => {
 
 // 서버 기동
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
   console.log(`[Trading System] API Server started on port ${PORT}`);
 });

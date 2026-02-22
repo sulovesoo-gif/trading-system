@@ -1,4 +1,4 @@
-from utils.kis_auth import KISAuth
+from services.kis_auth import KISAuth
 from services.collector.collector_service import run_once
 
 def main():
