@@ -39,8 +39,10 @@ def main():
                 else:
                     # 장외 강제 실행일 땐 조건식(장중 전용)에서 스킵될 수 있음(정상)
                     run_once(auth, auth.user_id, auth.base_url, target_conditions)
+                    print("✅ run_once 끝, 이제 calc_minute_signals 호출 직전")
                     # 분봉 신호 계산(5분 집계 포함)
                     calc_minute_signals(limit=300)
+                    print("✅ calc_minute_signals 호출 완료")
 
                 sleep_sec = 60  # 실행 모드: 1분
             else:

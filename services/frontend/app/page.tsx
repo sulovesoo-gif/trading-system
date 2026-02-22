@@ -49,7 +49,10 @@ export default function App() {
   // 실시간 데이터 호출 함수
   const fetchSignals = async () => {
     try {
-      const res = await fetch(`http://localhost:3001/api/signals?sortBy=${sortBy}`);
+      // const res = await fetch(`http://localhost:3001/api/signals?sortBy=${sortBy}`);
+      const API_BASE = process.env.NEXT_PUBLIC_API_BASE || 'http://localhost:4000';
+      // const API_BASE = 'http://13.209.49.77:4000';
+      const res = await fetch(`${API_BASE}/api/signals?sortBy=${sortBy}`);
       if (!res.ok) throw new Error('데이터를 불러오는데 실패했습니다.');
       const data = await res.json();
       

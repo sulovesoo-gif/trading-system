@@ -18,11 +18,11 @@ def collect_daily_candles(auth, base_url: str, code: str):
             "/uapi/domestic-stock/v1/quotations/inquire-daily-price",
             headers=headers,
             params=params,
-            timeout=20,
+            timeout=60,
         )
     except Exception as e:
         print(f"❌ {code} 일봉 조회 예외(스킵): {e}")
-        continue
+        return 0   # ✅ continue → return으로 변경
 
     if res.status_code != 200:
         print(f"❌ [{code}] 일봉 API 실패: {res.status_code} {res.text}")

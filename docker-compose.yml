@@ -52,6 +52,8 @@ services:
       - db
     networks:
       - trading_net
+    volumes:
+      - ./kis_devlp.yaml:/app/kis_devlp.yaml:ro
 
   # 대시보드 프론트엔드 (Next.js)
   frontend:
@@ -67,6 +69,7 @@ services:
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
+      - NEXT_PUBLIC_API_BASE=http://13.209.49.77:4000
     env_file: .env
     depends_on:
       - api-server
