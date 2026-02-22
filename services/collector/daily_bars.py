@@ -12,13 +12,17 @@ def collect_daily_candles(auth, base_url: str, code: str):
         "FID_ORG_ADJ_PRC": "1"
     }
 
-    res = kis_get(
-        base_url,
-        "/uapi/domestic-stock/v1/quotations/inquire-daily-price",
-        headers=headers,
-        params=params,
-        timeout=5
-    )
+    try:
+        res = kis_get(
+            base_url,
+            "/uapi/domestic-stock/v1/quotations/inquire-daily-price",
+            headers=headers,
+            params=params,
+            timeout=20,
+        )
+    except Exception as e:
+        print(f"❌ {code} 일봉 조회 예외(스킵): {e}")
+        continue
 
     if res.status_code != 200:
         print(f"❌ [{code}] 일봉 API 실패: {res.status_code} {res.text}")
